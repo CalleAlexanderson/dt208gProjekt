@@ -29,11 +29,7 @@ export class CoursesComponent {
       }
     });
   }
-
-  // skriver ut kurserna på sidan
-  displayCourses(courseArr: any[]):void{
-
-  }
+  
 
   filterByTopic(keywords: string[]): void{
     let tempArr: any[] = [];
@@ -46,7 +42,7 @@ export class CoursesComponent {
         }
       }
     }
-    this.displayCourses(tempArr)
+    this.copyOfCourses = tempArr;
   }
 
   // när en ruta klickas i på filtrerings menyn körs denna och dess keyword läggs till i keywordArr
