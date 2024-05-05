@@ -1,0 +1,25 @@
+<p>courses works!</p>
+
+<table>
+    <thead>
+        <tr>
+            <th (click)="sortByCode()">Kurskod</th>
+            <th (click)="sortByName()">Namn</th>
+            <th (click)="sortByPoints()">Poäng</th>
+            <th (click)="sortBySubject()">Ämne</th>
+            <th>Kursplan</th>
+            <th>Lägg till</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let course of copyOfCourses">
+
+            <td>{{course.courseCode}}</td>
+            <td>{{course.courseName}}</td>
+            <td>{{course.points}}</td>
+            <td>{{course.subject}}</td>
+            <td>{{course.syllabus}}</td>
+            <td><button>Lägg till</button></td>
+        </tr>
+    </tbody>
+</table>
