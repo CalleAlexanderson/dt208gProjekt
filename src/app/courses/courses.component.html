@@ -2,8 +2,8 @@
 
 <section>
     <div id="search_div">
-        <label for="search_input">Sök:</label>
-        <input type="text" id="search_input" name="search_input">
+        <label for="search_input">Sök kurs:</label> <br>
+        <input type="text" id="search_input" name="search_input" [(ngModel)]="searchTerm" (keyup)="searchTable()">
     </div>
     <div id="filter_div">
         <div *ngFor="let subject of uniqueSubjects">
@@ -12,6 +12,7 @@
         </div>
     </div>
 </section>
+<p>Visar {{copyOfCourses.length}} kurser av totalt {{courses.length}} kurser.</p>
 <table>
     <thead>
         <tr>

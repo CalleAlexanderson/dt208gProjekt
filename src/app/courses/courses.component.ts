@@ -20,6 +20,8 @@ export class CoursesComponent {
   pointSorted: boolean = false;
   copyOfCoursesSorted: any[] = [];
   uniqueSubjects: string[] = [];
+  searchTerm: string = '';
+  searchArr: string[] = [];
 
   constructor(private loadCourses: LoadCoursesService) {}
   ngOnInit(): void {
@@ -29,7 +31,8 @@ export class CoursesComponent {
         this.copyOfCourses.push(this.courses[index]);
 
         // skapar en array med alla subjects, gör så bara subjects läggs till en gång genom att kolla om ett subject redan finns i array:n
-        if (!this.uniqueSubjects.includes(this.courses[index].subject)) { //if sats tagen härifrån: https://www.golinuxcloud.com/javascript-array-unique/
+        if (!this.uniqueSubjects.includes(this.courses[index].subject)) {
+          //if sats tagen härifrån: https://www.golinuxcloud.com/javascript-array-unique/
           this.uniqueSubjects.push(this.courses[index].subject);
         }
       }
@@ -37,11 +40,35 @@ export class CoursesComponent {
       this.uniqueSubjects = this.uniqueSubjects.sort((a, b) =>
         a > b ? 1 : -1
       );
+      for (let index = 0; index < this.courses.length; index++) {
+        //lägger till alla kurser i en string array med kod och namn
+        this.searchArr.push(
+          `${this.courses[index].courseCode.toLowerCase()} ${this.courses[
+            index
+          ].courseName.toLowerCase()}`
+        );
+      }
     });
   }
-  
 
-  filterByTopic(keywords: string[]): void{
+  // Återanvänder basen från den sökfunktion jag byggde i lab 4, ändrade/tog bort en del saker som var onödiga
+  searchTable(): void {
+    let searchedArr: any[] = []; //kurser från courseArr som matchar sökning
+
+    for (let index = 0; index < this.courses.length; index++) {
+      //kollar om sökningen matchar kod eller namn på kurs
+      let matchesSearchTerm: number = this.searchArr[index].search(
+        this.searchTerm.toLowerCase()
+      );
+      //om den matchar läggs den kursen till i searchedArr
+      if (matchesSearchTerm != -1) {
+        searchedArr.push(this.courses[index]);
+      }
+    }
+    this.copyOfCourses = searchedArr;
+  }
+
+  filterByTopic(keywords: string[]): void {
     let tempArr: any[] = [];
     // går igenom copy of courses och kollar om en kurs subject matchar något av de keyword man valt att filtrera med
     for (let index = 0; index < this.courses.length; index++) {
@@ -51,35 +78,29 @@ export class CoursesComponent {
         }
       }
     }
+    // om tempArr är tom (ingen checkbox klickad) så får den värdet av courses
     if (tempArr.length == 0) {
       tempArr = this.courses;
     }
-    console.log(tempArr);
     this.copyOfCourses = tempArr;
   }
 
-  // när en ruta klickas i på filtrerings menyn körs denna och dess keyword läggs till i keywordArr
-  addKeyWordToFilter(element: any):void{
-    console.log(element.srcElement.checked);
-    console.log(element.srcElement.id);
-    console.log("kör adddkeyword");
+  // när en ruta klickas i på filtrerings menyn körs denna och dess id läggs till i keywordArr
+  addKeyWordToFilter(element: any): void {
     if (!element.srcElement.checked) {
       for (let index = 0; index < this.keyWordArr.length; index++) {
         if (this.keyWordArr[index] == element.srcElement.id) {
-          this.keyWordArr.splice(index, 1)
+          this.keyWordArr.splice(index, 1);
         }
       }
     } else {
-      this.keyWordArr.push(element.srcElement.id)
+      this.keyWordArr.push(element.srcElement.id);
     }
-    console.log(this.keyWordArr);
     this.filterByTopic(this.keyWordArr);
   }
 
-
   //återanvänder sort funktioner jag gjort i lab 4
   sortByCode(): void {
-    console.log('sorterar efter kod');
     this.nameSorted = false;
     this.subjectSorted = false;
     this.pointSorted = false;
@@ -101,7 +122,6 @@ export class CoursesComponent {
   }
 
   sortByName(): void {
-    console.log('sorterar efter namn');
     this.codeSorted = false;
     this.subjectSorted = false;
     this.pointSorted = false;
@@ -122,7 +142,6 @@ export class CoursesComponent {
   }
 
   sortByPoints(): void {
-    console.log('sorterar efter poäng');
     this.codeSorted = false;
     this.nameSorted = false;
     this.subjectSorted = false;
@@ -144,20 +163,19 @@ export class CoursesComponent {
   }
 
   sortBySubject(): void {
-    console.log('sorterar efter subject');
     this.codeSorted = false;
     this.nameSorted = false;
     this.pointSorted = false;
     if (this.subjectSorted == false) {
       // sorterar array efter subject
       this.copyOfCoursesSorted = this.copyOfCourses.sort((a, b) =>
-        a.subjectCode > b.subjectCode ? 1 : -1
+        a.subject > b.subject ? 1 : -1
       );
       this.copyOfCourses = this.copyOfCoursesSorted;
       this.subjectSorted = true;
     } else {
       this.copyOfCoursesSorted = this.copyOfCourses.sort((a, b) =>
-        a.subjectCode > b.subjectCode ? -1 : 1
+        a.subject > b.subject ? -1 : 1
       );
       this.copyOfCourses = this.copyOfCoursesSorted;
       this.subjectSorted = false;
