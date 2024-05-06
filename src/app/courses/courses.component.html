@@ -1,5 +1,12 @@
 <p>courses works!</p>
 
+<div id="filter_div">
+    <div *ngFor="let subject of uniqueSubjects">
+        <label for="{{subject}}">{{subject}}</label>
+        <input type="checkbox" name="{{subject}}" id="{{subject}}" (click)="addKeyWordToFilter($event)">
+    </div>
+    
+</div>
 <table>
     <thead>
         <tr>
@@ -13,12 +20,11 @@
     </thead>
     <tbody>
         <tr *ngFor="let course of copyOfCourses">
-
             <td>{{course.courseCode}}</td>
             <td>{{course.courseName}}</td>
             <td>{{course.points}}</td>
             <td>{{course.subject}}</td>
-            <td>{{course.syllabus}}</td>
+            <td><a href="{{course.syllabus}}">Kursplan</a></td>
             <td><button>Lägg till</button></td>
         </tr>
     </tbody>

@@ -19,14 +19,24 @@ export class CoursesComponent {
   subjectSorted: boolean = false;
   pointSorted: boolean = false;
   copyOfCoursesSorted: any[] = [];
+  uniqueSubjects: string[] = [];
 
-  constructor(private loadCouurses: LoadCoursesService) {}
+  constructor(private loadCourses: LoadCoursesService) {}
   ngOnInit(): void {
-    this.loadCouurses.getCourses().subscribe((data) => {
+    this.loadCourses.getCourses().subscribe((data) => {
       this.courses = data;
       for (let index = 0; index < this.courses.length; index++) {
         this.copyOfCourses.push(this.courses[index]);
+
+        // skapar en array med alla subjects, gör så bara subjects läggs till en gång genom att kolla om ett subject redan finns i array:n
+        if (!this.uniqueSubjects.includes(this.courses[index].subject)) { //if sats tagen härifrån: https://www.golinuxcloud.com/javascript-array-unique/
+          this.uniqueSubjects.push(this.courses[index].subject);
+        }
       }
+      //sorterar subjects så a är först och ö sist
+      this.uniqueSubjects = this.uniqueSubjects.sort((a, b) =>
+        a > b ? 1 : -1
+      );
     });
   }
   
@@ -42,18 +52,33 @@ export class CoursesComponent {
         }
       }
     }
+    if (tempArr.length == 0) {
+      tempArr = this.courses;
+    }
+    console.log(tempArr);
     this.copyOfCourses = tempArr;
   }
 
   // när en ruta klickas i på filtrerings menyn körs denna och dess keyword läggs till i keywordArr
-  addKeyWordToFilter():void{
+  addKeyWordToFilter(element: any):void{
+    console.log(element.srcElement.checked);
+    console.log(element.srcElement.id);
+    if (!element.srcElement.checked) {
+      for (let index = 0; index < this.keyWordArr.length; index++) {
+        if (this.keyWordArr[index] == element.srcElement.id) {
+          this.keyWordArr.splice(index, 1)
+        }
+      }
+    } else {
+      this.keyWordArr.push(element.srcElement.id)
+    }
+    console.log(this.keyWordArr);
     this.filterByTopic(this.keyWordArr);
   }
 
 
   //återanvänder sort funktioner jag gjort i lab 4
   sortByCode(): void {
-    this.resetTable();
     console.log('sorterar efter kod');
     this.nameSorted = false;
     this.subjectSorted = false;
@@ -76,7 +101,6 @@ export class CoursesComponent {
   }
 
   sortByName(): void {
-    this.resetTable();
     console.log('sorterar efter namn');
     this.codeSorted = false;
     this.subjectSorted = false;
@@ -98,7 +122,6 @@ export class CoursesComponent {
   }
 
   sortByPoints(): void {
-    this.resetTable();
     console.log('sorterar efter poäng');
     this.codeSorted = false;
     this.nameSorted = false;
@@ -121,7 +144,6 @@ export class CoursesComponent {
   }
 
   sortBySubject(): void {
-    this.resetTable();
     console.log('sorterar efter subject');
     this.codeSorted = false;
     this.nameSorted = false;
@@ -140,15 +162,5 @@ export class CoursesComponent {
       this.copyOfCourses = this.copyOfCoursesSorted;
       this.subjectSorted = false;
     }
-  }
-
-  resetTable(): void {
-    console.log('tabell återställd');
-
-    this.copyOfCourses = [];
-    for (let index = 0; index < this.courses.length; index++) {
-      this.copyOfCourses.push(this.courses[index]);
-    }
-    console.log(this.courses);
   }
 }
