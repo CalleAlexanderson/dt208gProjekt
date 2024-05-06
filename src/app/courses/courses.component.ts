@@ -43,12 +43,11 @@ export class CoursesComponent {
 
   filterByTopic(keywords: string[]): void{
     let tempArr: any[] = [];
-
     // går igenom copy of courses och kollar om en kurs subject matchar något av de keyword man valt att filtrera med
-    for (let index = 0; index < this.copyOfCourses.length; index++) {
+    for (let index = 0; index < this.courses.length; index++) {
       for (let i = 0; i < keywords.length; i++) {
-        if (keywords[i] == this.copyOfCourses[index].subject) {
-          tempArr.push(this.copyOfCourses[index]);
+        if (keywords[i] == this.courses[index].subject) {
+          tempArr.push(this.courses[index]);
         }
       }
     }
@@ -63,6 +62,7 @@ export class CoursesComponent {
   addKeyWordToFilter(element: any):void{
     console.log(element.srcElement.checked);
     console.log(element.srcElement.id);
+    console.log("kör adddkeyword");
     if (!element.srcElement.checked) {
       for (let index = 0; index < this.keyWordArr.length; index++) {
         if (this.keyWordArr[index] == element.srcElement.id) {

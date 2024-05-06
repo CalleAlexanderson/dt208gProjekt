@@ -1,12 +1,17 @@
 <p>courses works!</p>
 
-<div id="filter_div">
-    <div *ngFor="let subject of uniqueSubjects">
-        <label for="{{subject}}">{{subject}}</label>
-        <input type="checkbox" name="{{subject}}" id="{{subject}}" (click)="addKeyWordToFilter($event)">
+<section>
+    <div id="search_div">
+        <label for="search_input">Sök:</label>
+        <input type="text" id="search_input" name="search_input">
     </div>
-    
-</div>
+    <div id="filter_div">
+        <div *ngFor="let subject of uniqueSubjects">
+            <label for="{{subject}}">{{subject}}:</label>
+            <input type="checkbox" name="{{subject}}" id="{{subject}}" (click)="addKeyWordToFilter($event)">
+        </div>
+    </div>
+</section>
 <table>
     <thead>
         <tr>
