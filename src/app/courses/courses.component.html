@@ -1,5 +1,5 @@
 <p>courses works!</p>
-
+<a routerLink="ramschema">ramschema</a>
 <section>
     <div id="search_div">
         <label for="search_input">Sök kurs:</label> <br>
@@ -31,7 +31,7 @@
             <td>{{course.points}}</td>
             <td>{{course.subject}}</td>
             <td><a href="{{course.syllabus}}">Kursplan</a></td>
-            <td><button>Lägg till</button></td>
+            <td><button (click)="addToSchema($event)" id="{{course.courseCode}}">Lägg till</button></td>
         </tr>
     </tbody>
 </table>

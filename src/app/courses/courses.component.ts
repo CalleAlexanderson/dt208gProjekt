@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { LoadCoursesService } from '../services/load-courses.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
 })
@@ -22,6 +23,7 @@ export class CoursesComponent {
   uniqueSubjects: string[] = [];
   searchTerm: string = '';
   searchArr: string[] = [];
+  storageArr: string[] = []
 
   constructor(private loadCourses: LoadCoursesService) {}
   ngOnInit(): void {
@@ -49,6 +51,18 @@ export class CoursesComponent {
         );
       }
     });
+  }
+
+  addToSchema(element: any): void{
+    let storedCodes: string = localStorage.getItem('courseCodes')|| '';
+    if (storedCodes != '') {
+      this.storageArr = storedCodes.split(',') ;
+    }
+    if (!this.storageArr.includes(element.srcElement.id)) {
+      this.storageArr.push(element.srcElement.id);
+    }
+    let courseCodes = this.storageArr.toString();
+    localStorage.setItem('courseCodes', courseCodes)
   }
 
   // Återanvänder basen från den sökfunktion jag byggde i lab 4, ändrade/tog bort en del saker som var onödiga

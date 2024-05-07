@@ -1,1 +1,25 @@
 <p>chosen-courses works!</p>
+<a routerLink="/">Kurser</a>
+<p>Totala högskolepoäng på valda kurser: {{totalPoints}}</p>
+<table>
+    <thead>
+        <tr>
+            <th>Kurskod</th>
+            <th>Namn</th>
+            <th>Poäng</th>
+            <th>Ämne</th>
+            <th>Kursplan</th>
+            <th>Ta bort</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let course of loadedCourses">
+            <td>{{course.courseCode}}</td>
+            <td>{{course.courseName}}</td>
+            <td>{{course.points}}</td>
+            <td>{{course.subject}}</td>
+            <td><a href="{{course.syllabus}}">Kursplan</a></td>
+            <td><button (click)="removeFromSchema($event)" id="{{course.courseCode}}">Ta bort</button></td>
+        </tr>
+    </tbody>
+</table>
