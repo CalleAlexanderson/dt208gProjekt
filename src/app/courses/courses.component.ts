@@ -3,6 +3,7 @@ import { LoadCoursesService } from '../services/load-courses.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -23,10 +24,16 @@ export class CoursesComponent {
   uniqueSubjects: string[] = [];
   searchTerm: string = '';
   searchArr: string[] = [];
-  storageArr: string[] = []
+  storageArr: string[] = [];
+  uniqueSubjectsCopy: string[] = [];
+  filterSearchTerm: string = "";
 
   constructor(private loadCourses: LoadCoursesService) {}
   ngOnInit(): void {
+    let filterDivInit = document.getElementById('filter_div') as HTMLDivElement;
+    filterDivInit.style.visibility = 'hidden';
+    let filterbtn = document.getElementById('filter_btn') as HTMLButtonElement;
+    filterbtn.style.visibility = 'hidden';
     this.loadCourses.getCourses().subscribe((data) => {
       this.courses = data;
       for (let index = 0; index < this.courses.length; index++) {
@@ -42,6 +49,9 @@ export class CoursesComponent {
       this.uniqueSubjects = this.uniqueSubjects.sort((a, b) =>
         a > b ? 1 : -1
       );
+      for (let index = 0; index < this.uniqueSubjects.length; index++) {
+        this.uniqueSubjectsCopy.push(this.uniqueSubjects[index]);
+      }
       for (let index = 0; index < this.courses.length; index++) {
         //lägger till alla kurser i en string array med kod och namn
         this.searchArr.push(
@@ -53,16 +63,16 @@ export class CoursesComponent {
     });
   }
 
-  addToSchema(element: any): void{
-    let storedCodes: string = localStorage.getItem('courseCodes')|| '';
+  addToSchema(element: any): void {
+    let storedCodes: string = localStorage.getItem('courseCodes') || '';
     if (storedCodes != '') {
-      this.storageArr = storedCodes.split(',') ;
+      this.storageArr = storedCodes.split(',');
     }
     if (!this.storageArr.includes(element.srcElement.id)) {
       this.storageArr.push(element.srcElement.id);
     }
     let courseCodes = this.storageArr.toString();
-    localStorage.setItem('courseCodes', courseCodes)
+    localStorage.setItem('courseCodes', courseCodes);
   }
 
   // Återanvänder basen från den sökfunktion jag byggde i lab 4, ändrade/tog bort en del saker som var onödiga
@@ -80,6 +90,34 @@ export class CoursesComponent {
       }
     }
     this.copyOfCourses = searchedArr;
+  }
+
+  showFilter(): void {
+    let filterDiv = document.getElementById('filter_div') as HTMLDivElement;
+    let filterbtn = document.getElementById('filter_btn') as HTMLButtonElement;
+    filterDiv.style.visibility = 'visible';
+    filterbtn.style.visibility = 'visible';
+    filterbtn.style.left =  `calc(${filterDiv.offsetWidth}px - 27px)`;
+  }
+
+  hideFilter(): void {
+    let filterDiv = document.getElementById('filter_div') as HTMLDivElement;
+    let filterbtn = document.getElementById('filter_btn') as HTMLButtonElement;
+    filterDiv.style.visibility = 'hidden';
+    filterbtn.style.visibility = 'hidden';
+  }
+
+  searchInFilter(): void{
+    let filterSearchedArr: any[] = []; 
+    for (let index = 0; index < this.uniqueSubjectsCopy.length; index++) {
+      let filterMatchesSearchTerm: number = this.uniqueSubjectsCopy[index].toLocaleLowerCase().search(
+        this.filterSearchTerm.toLowerCase()
+      );
+      if (filterMatchesSearchTerm != -1) {
+        filterSearchedArr.push(this.uniqueSubjectsCopy[index]);
+      }
+    }
+    this.uniqueSubjects = filterSearchedArr;
   }
 
   filterByTopic(keywords: string[]): void {

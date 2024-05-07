@@ -1,4 +1,64 @@
+section{ 
+    position: relative;
+}
+
+#search_div{
+    width: 40%;
+    max-width: 300px;
+    input{
+        width: 100%;
+    }
+}
+
 #filter_div{
-    display: flex;
-    flex-direction: column;
+    background-color: white;
+    width: 60%;
+    max-width: 400px;
+    max-height: 300px;
+    overflow-y: scroll;
+    border-bottom: 5px solid #f1f1f1;
+    border-left: 5px solid #f1f1f1;
+    position: absolute;
+    *{
+        margin: 4px 2px;
+    }
+}
+
+#filter_div_controller{
+    width: 60%;
+    max-width: 400px;
+    padding: 2px;
+}
+
+#filter_btn{
+    width: 30px;
+    position: absolute;
+    left: calc(30% - 22px);
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+
+#filter_btn:hover{
+    border: 2px solid black;
+    padding: 2px 8px;
+}
+
+.clickableTh{
+    cursor: pointer;
+}
+
+.clickableTh:hover{
+    background-color: darkcyan;
+    color: white;
+    transition: 0.5s background-color;
+}
+
+td:nth-child(5){
+    a{
+        color: black;
+    }
+    a:hover{
+        color: darkcyan;
+        transition: 0.25s;
+    }
 }

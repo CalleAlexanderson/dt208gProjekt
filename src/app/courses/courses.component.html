@@ -1,37 +1,42 @@
 <p>courses works!</p>
 <a routerLink="ramschema">ramschema</a>
-<section>
-    <div id="search_div">
-        <label for="search_input">Sök kurs:</label> <br>
-        <input type="text" id="search_input" name="search_input" [(ngModel)]="searchTerm" (keyup)="searchTable()">
-    </div>
-    <div id="filter_div">
-        <div *ngFor="let subject of uniqueSubjects">
-            <label for="{{subject}}">{{subject}}:</label>
-            <input type="checkbox" name="{{subject}}" id="{{subject}}" (click)="addKeyWordToFilter($event)">
+<main>
+    <section>
+        <div id="search_div">
+            <label for="search_input">Sök kurs:</label> <br>
+            <input type="text" id="search_input" name="search_input" [(ngModel)]="searchTerm" (keyup)="searchTable()">
         </div>
-    </div>
-</section>
-<p>Visar {{copyOfCourses.length}} kurser av totalt {{courses.length}} kurser.</p>
-<table>
-    <thead>
-        <tr>
-            <th (click)="sortByCode()">Kurskod</th>
-            <th (click)="sortByName()">Namn</th>
-            <th (click)="sortByPoints()">Poäng</th>
-            <th (click)="sortBySubject()">Ämne</th>
-            <th>Kursplan</th>
-            <th>Lägg till</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let course of copyOfCourses">
-            <td>{{course.courseCode}}</td>
-            <td>{{course.courseName}}</td>
-            <td>{{course.points}}</td>
-            <td>{{course.subject}}</td>
-            <td><a href="{{course.syllabus}}">Kursplan</a></td>
-            <td><button (click)="addToSchema($event)" id="{{course.courseCode}}">Lägg till</button></td>
-        </tr>
-    </tbody>
-</table>
+        <input type="text" placeholder="Ämnen:" id="filter_div_controller" (focus)="showFilter()" 
+         (keyup)="searchInFilter()" [(ngModel)]="filterSearchTerm" autocomplete="off">
+        <button (click)="hideFilter()" id="filter_btn">X</button>
+        <div id="filter_div">
+            <div *ngFor="let subject of uniqueSubjects">
+                <label for="{{subject}}">{{subject}}:</label>
+                <input type="checkbox" name="{{subject}}" id="{{subject}}" (click)="addKeyWordToFilter($event)">
+            </div>
+        </div>
+    </section>
+    <p>Visar {{copyOfCourses.length}} kurser av totalt {{courses.length}} kurser.</p>
+    <table>
+        <thead>
+            <tr>
+                <th (click)="sortByCode()" class="clickableTh">Kurskod</th>
+                <th (click)="sortByName()" class="clickableTh">Namn</th>
+                <th (click)="sortByPoints()" class="clickableTh">Poäng</th>
+                <th (click)="sortBySubject()" class="clickableTh">Ämne</th>
+                <th>Kursplan</th>
+                <th>Lägg till</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of copyOfCourses">
+                <td>{{course.courseCode}}</td>
+                <td>{{course.courseName}}</td>
+                <td>{{course.points}}</td>
+                <td>{{course.subject}}</td>
+                <td><a href="{{course.syllabus}}">Kursplan</a></td>
+                <td><button (click)="addToSchema($event)" id="{{course.courseCode}}">Lägg till</button></td>
+            </tr>
+        </tbody>
+    </table>
+</main>

@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+button {
+  background-color: darkcyan;
+  color: white;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 20px;
+}
+
+button:hover{
+    border: 3px solid black;
+    padding: 2px 17px;
+}
+
+button:active{
+    background-color: black;
+}
+
+table {
+    border-collapse: collapse;
+  tr {
+    line-height: 2.5rem;
+    border-bottom: 1px solid black;
+  }
+
+  th {
+  }
+
+  td {
+  }
+}
