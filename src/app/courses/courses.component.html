@@ -1,10 +1,9 @@
-<p>courses works!</p>
-<a routerLink="ramschema">ramschema</a>
+<h2>Kurser</h2>
 <main>
     <section>
         <div id="search_div">
             <label for="search_input">Sök kurs:</label> <br>
-            <input type="text" id="search_input" name="search_input" [(ngModel)]="searchTerm" (keyup)="searchTable()">
+            <input type="text" id="search_input" name="search_input" [(ngModel)]="searchTerm" (keyup)="searchTable()" placeholder="Vilken kurs letar du efter?">
         </div>
         <input type="text" placeholder="Ämnen:" id="filter_div_controller" (focus)="showFilter()" 
          (keyup)="searchInFilter()" [(ngModel)]="filterSearchTerm" autocomplete="off">
@@ -16,27 +15,31 @@
             </div>
         </div>
     </section>
-    <p>Visar {{copyOfCourses.length}} kurser av totalt {{courses.length}} kurser.</p>
-    <table>
-        <thead>
-            <tr>
-                <th (click)="sortByCode()" class="clickableTh">Kurskod</th>
-                <th (click)="sortByName()" class="clickableTh">Namn</th>
-                <th (click)="sortByPoints()" class="clickableTh">Poäng</th>
-                <th (click)="sortBySubject()" class="clickableTh">Ämne</th>
-                <th>Kursplan</th>
-                <th>Lägg till</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let course of copyOfCourses">
-                <td>{{course.courseCode}}</td>
-                <td>{{course.courseName}}</td>
-                <td>{{course.points}}</td>
-                <td>{{course.subject}}</td>
-                <td><a href="{{course.syllabus}}">Kursplan</a></td>
-                <td><button (click)="addToSchema($event)" id="{{course.courseCode}}">Lägg till</button></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="tableDiv">
+        <p>Visar {{copyOfCourses.length}} kurser av totalt {{courses.length}} kurser.</p>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lägg till</th>
+                        <th (click)="sortByCode()" class="clickableTh">Kurskod</th>
+                        <th (click)="sortByName()" class="clickableTh">Namn</th>
+                        <th (click)="sortByPoints()" class="clickableTh">Poäng</th>
+                        <th (click)="sortBySubject()" class="clickableTh">Ämne</th>
+                        <th>Kursplan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of copyOfCourses">
+                        <td><button (click)="addToSchema($event)" id="{{course.courseCode}}">Lägg till</button></td>
+                        <td>{{course.courseCode}}</td>
+                        <td>{{course.courseName}}</td>
+                        <td>{{course.points}}</td>
+                        <td>{{course.subject}}</td>
+                        <td><a href="{{course.syllabus}}">Kursplan</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </main>

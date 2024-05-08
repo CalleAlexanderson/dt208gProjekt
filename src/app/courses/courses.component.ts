@@ -34,6 +34,11 @@ export class CoursesComponent {
     filterDivInit.style.visibility = 'hidden';
     let filterbtn = document.getElementById('filter_btn') as HTMLButtonElement;
     filterbtn.style.visibility = 'hidden';
+    let link = document.getElementsByClassName('navLinks') as HTMLCollectionOf<HTMLLinkElement>;
+    for (let index = 0; index < link.length; index++) {
+      link[index].classList.remove("currentSite");
+    }
+    link[1].classList.add("currentSite");
     this.loadCourses.getCourses().subscribe((data) => {
       this.courses = data;
       for (let index = 0; index < this.courses.length; index++) {

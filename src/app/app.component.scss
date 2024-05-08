@@ -1,0 +1,60 @@
+header {
+  width: 100%;
+  color: darkcyan;
+  h1 {
+    padding: 20px;
+    font-size: 2.2rem;
+  }
+}
+
+nav {
+  background-color: white;
+  ul {
+    width: 320px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid darkcyan;
+    li {
+      border-right: 2px solid darkcyan;
+      background-color: white;
+      height: 40px;
+      width: 106.333333px;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        span {
+          color: darkcyan;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: darkcyan;
+  h3, a {
+    color: white;
+    padding: 10px 10px 0 5%;
+  }
+}
+
+.currentSite {
+  background-color: darkcyan !important;
+  a {
+    span {
+      color: white !important;
+    }
+  }
+}

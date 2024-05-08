@@ -25,6 +25,11 @@ export class ChosenCoursesComponent {
   totalPoints: number = 0;
 
   ngOnInit(): void {
+    let link = document.getElementsByClassName('navLinks') as HTMLCollectionOf<HTMLLinkElement>;
+    for (let index = 0; index < link.length; index++) {
+      link[index].classList.remove("currentSite");
+    }
+    link[2].classList.add("currentSite");
     this.loadCourses.getCourses().subscribe((data) => {
       this.courses = data;
       this.loadedCourseCodes =
