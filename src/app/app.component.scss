@@ -1,9 +1,28 @@
 header {
   width: 100%;
+  height: 80px;
   color: darkcyan;
+  display: flex;
+  img{
+    margin: 10px;
+  }
   h1 {
-    padding: 20px;
-    font-size: 2.2rem;
+    width: 190px;
+    font-family: Georgia, Times, serif;
+    margin: 20px 20px 20px 10px;
+    font-size: 1.2rem;
+    span{
+      color: #4a4a4a;
+    }
+  }
+}
+
+@media screen and (min-width: 700px){
+  header {
+    h1 {
+      width: auto;
+      font-size: 2.2rem;
+    }
   }
 }
 
@@ -43,7 +62,7 @@ footer {
   left: 0;
   width: 100%;
   height: 60px;
-  background-color: darkcyan;
+  background-color: #4a4a4a;
   h3, a {
     color: white;
     padding: 10px 10px 0 5%;

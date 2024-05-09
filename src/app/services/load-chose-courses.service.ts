@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { LoadCoursesService } from '../services/load-courses.service';
 
 @Injectable({
   providedIn: 'root',
