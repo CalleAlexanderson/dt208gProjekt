@@ -1,0 +1,60 @@
+main{
+    background-image: url("../../assets/UCB_background.webp");
+    width: 100%;
+}
+
+section {
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
+  h3 {
+    color: darkcyan;
+    font-size: 1.4rem;
+  }
+  h4{
+    font-size: 1.2rem;
+  }
+  p{
+    line-height: 1.2rem;
+  }
+  article {
+    padding: 10px 0;
+    > * {
+      padding: 10px;
+    }
+    div{
+        border: #4a4a4a solid 2px;
+        box-shadow: 2px 2px 4px black;
+        border-radius: 10px;
+        background-color: rgb(250, 250, 250);
+        >*{
+            margin: 10px 0;
+        }
+    }
+    ul {
+      list-style: none;
+      li {
+        margin: 20px 0;
+        article {
+          background-color: darkcyan;
+          border-radius: 10px;
+          color: white;
+          border: 1px solid #4a4a4a;
+          box-shadow: 2px 2px 6px black;
+          h4{
+            max-width: 80%;
+          }
+          video {
+            border: 3px solid #4a4a4a;
+            background-color: white;
+            width: 90%;
+            height: auto;
+            margin: 5px calc(5% - 3px);
+            border-radius: 5px;
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,13 +10,18 @@ body{
 
 main {
   width: 90%;
-  margin: 0 auto 80px;
+  margin: 0 auto 60px;
 }
+
 h2 {
   background-color: darkcyan;
   color: white;
   font-size: 1.8rem;
   padding: 10px 10px 10px 5%;
+}
+
+p{
+  font-family: Verdana, sans-serif;
 }
 
 button {
@@ -40,6 +45,7 @@ button:active {
 .tableDiv {
   margin: 30px 0;
   div {
+    height: calc(100vh - 385px);
     overflow-x: auto;
   }
 }

@@ -26,19 +26,30 @@ export class CoursesComponent {
   searchArr: string[] = [];
   storageArr: string[] = [];
   uniqueSubjectsCopy: string[] = [];
-  filterSearchTerm: string = "";
+  filterSearchTerm: string = '';
 
   constructor(private loadCourses: LoadCoursesService) {}
   ngOnInit(): void {
+    //lägger till styles på element så det funkar korrekt när de ska ändras senare
     let filterDivInit = document.getElementById('filter_div') as HTMLDivElement;
     filterDivInit.style.visibility = 'hidden';
     let filterbtn = document.getElementById('filter_btn') as HTMLButtonElement;
     filterbtn.style.visibility = 'hidden';
-    let link = document.getElementsByClassName('navLinks') as HTMLCollectionOf<HTMLLinkElement>;
+    let link = document.getElementsByClassName(
+      'navLinks'
+    ) as HTMLCollectionOf<HTMLLinkElement>;
+    // sätter denna sidas flik till current site i nav:en
     for (let index = 0; index < link.length; index++) {
-      link[index].classList.remove("currentSite");
+      link[index].classList.remove('currentSite');
     }
-    link[1].classList.add("currentSite");
+    link[1].classList.add('currentSite');
+
+    let storedCodes: string = localStorage.getItem('courseCodes') || '';
+    if (storedCodes != '') {
+      this.storageArr = storedCodes.split(',');
+    }
+    console.log(this.storageArr);
+
     this.loadCourses.getCourses().subscribe((data) => {
       this.courses = data;
       for (let index = 0; index < this.courses.length; index++) {
@@ -69,10 +80,6 @@ export class CoursesComponent {
   }
 
   addToSchema(element: any): void {
-    let storedCodes: string = localStorage.getItem('courseCodes') || '';
-    if (storedCodes != '') {
-      this.storageArr = storedCodes.split(',');
-    }
     if (!this.storageArr.includes(element.srcElement.id)) {
       this.storageArr.push(element.srcElement.id);
     }
@@ -102,7 +109,7 @@ export class CoursesComponent {
     let filterbtn = document.getElementById('filter_btn') as HTMLButtonElement;
     filterDiv.style.visibility = 'visible';
     filterbtn.style.visibility = 'visible';
-    filterbtn.style.left =  `calc(${filterDiv.offsetWidth}px - 27px)`;
+    filterbtn.style.left = `calc(${filterDiv.offsetWidth}px - 27px)`;
   }
 
   hideFilter(): void {
@@ -112,12 +119,12 @@ export class CoursesComponent {
     filterbtn.style.visibility = 'hidden';
   }
 
-  searchInFilter(): void{
-    let filterSearchedArr: any[] = []; 
+  searchInFilter(): void {
+    let filterSearchedArr: any[] = [];
     for (let index = 0; index < this.uniqueSubjectsCopy.length; index++) {
-      let filterMatchesSearchTerm: number = this.uniqueSubjectsCopy[index].toLocaleLowerCase().search(
-        this.filterSearchTerm.toLowerCase()
-      );
+      let filterMatchesSearchTerm: number = this.uniqueSubjectsCopy[index]
+        .toLocaleLowerCase()
+        .search(this.filterSearchTerm.toLowerCase());
       if (filterMatchesSearchTerm != -1) {
         filterSearchedArr.push(this.uniqueSubjectsCopy[index]);
       }

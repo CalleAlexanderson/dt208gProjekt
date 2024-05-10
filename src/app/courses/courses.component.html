@@ -3,7 +3,7 @@
     <section>
         <div id="search_div">
             <label for="search_input">Sök kurs:</label> <br>
-            <input type="text" id="search_input" name="search_input" [(ngModel)]="searchTerm" (keyup)="searchTable()" placeholder="Vilken kurs letar du efter?">
+            <input type="text" id="search_input" name="search_input" [(ngModel)]="searchTerm" (keyup)="searchTable()" placeholder="Vilken kurs letar du efter?" autocomplete="off">
         </div>
         <input type="text" placeholder="Ämnen:" id="filter_div_controller" (focus)="showFilter()" 
          (keyup)="searchInFilter()" [(ngModel)]="filterSearchTerm" autocomplete="off">
