@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { LoadCoursesService } from '../services/load-courses.service';
+import { LoadChoseCoursesService } from '../services/load-chose-courses.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -28,7 +28,7 @@ export class CoursesComponent {
   uniqueSubjectsCopy: string[] = [];
   filterSearchTerm: string = '';
 
-  constructor(private loadCourses: LoadCoursesService) {}
+  constructor(private loadCourses: LoadCoursesService, private loadChoseCoursesService: LoadChoseCoursesService) {}
   ngOnInit(): void {
     //lägger till styles på element så det funkar korrekt när de ska ändras senare
     let filterDivInit = document.getElementById('filter_div') as HTMLDivElement;
@@ -44,10 +44,7 @@ export class CoursesComponent {
     }
     link[1].classList.add('currentSite');
 
-    let storedCodes: string = localStorage.getItem('courseCodes') || '';
-    if (storedCodes != '') {
-      this.storageArr = storedCodes.split(',');
-    }
+    this.storageArr = this.loadChoseCoursesService.getCoursesFromStorage();
     console.log(this.storageArr);
 
     this.loadCourses.getCourses().subscribe((data) => {
