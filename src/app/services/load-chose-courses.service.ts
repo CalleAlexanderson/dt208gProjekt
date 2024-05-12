@@ -15,7 +15,12 @@ export class LoadChoseCoursesService {
     //omvandlar string från localstorage till en array
     let courseCodesFromStorage: string[] = coursesFromStorage.split(',');
 
+    if (courseCodesFromStorage[0] == 'Inga kurser') {
+
+      return [];
+    } else {
+      return courseCodesFromStorage;
+    }
     
-    return courseCodesFromStorage;
   }
 }
